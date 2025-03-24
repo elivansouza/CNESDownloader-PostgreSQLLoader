@@ -32,6 +32,7 @@ O script baixa e extrai arquivos CSV contidos no pacote ZIP mensal do CNES, incl
 - Extração automática dos CSVs
 - Log detalhado da operação
 - **Integração com PostgreSQL** para estruturação e carga dos dados
+- Criação de tabela de análise consolidada para exploração dos dados
 
 ---
 
@@ -72,9 +73,9 @@ python cnes.py --auto
 - PostgreSQL 12+
 - Banco de dados e usuário com permissões adequadas
 
-### 4️⃣ Execute o SQL de carga
+### 4️⃣ Execute os SQLs de carga e análise
 
-Após a extração dos arquivos, importe no PostgreSQL:
+#### Script de carga dos dados brutos:
 
 ```bash
 psql -U seu_usuario -d seu_banco -f query.sql
@@ -86,6 +87,20 @@ O script `query.sql`:
 - Prepara as tabelas para futuras consultas e análises
 
 > ⚠️ **Importante:** certifique-se de ajustar os caminhos dos CSVs no `query.sql` conforme o local onde foram extraídos (`./CNES/`).
+
+#### Script adicional para geração da tabela de análise:
+
+Após a carga dos dados brutos, execute também:
+
+```bash
+psql -U seu_usuario -d seu_banco -f query_tab_análise.sql
+```
+
+O script `query_tab_análise.sql`:
+- Realiza transformações e consolidações dos dados brutos
+- Cria a tabela final `tab_analise_cnes` para exploração e análise de dados
+
+> 📝 **Dica:** Essa tabela pode ser utilizada diretamente em dashboards ou análises exploratórias.
 
 ---
 
@@ -112,6 +127,7 @@ Todos os logs de execução são armazenados em `cnes_downloader.log` com inform
 ```plaintext
 ├── cnes.py
 ├── query.sql
+├── query_tab_análise.sql
 ├── Makefile
 ├── LICENSE
 ├── .gitignore
