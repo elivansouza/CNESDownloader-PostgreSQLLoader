@@ -44,8 +44,8 @@ SELECT
   END AS validacao_latitude,
   CASE
     WHEN cnes.nu_longitude ~ '^[-+]?\d+(\.\d+)?$'
-    AND CAST(cnes.nu_longitude AS NUMERIC) BETWEEN -90
-    AND 90 THEN 'Válida'
+    AND CAST(cnes.nu_longitude AS NUMERIC) BETWEEN -180
+    AND 180 THEN 'Válida'
     ELSE 'Inválida'
   END AS validacao_longitude,
   cnes.nu_telefone,
