@@ -1,3 +1,4 @@
+
 # CNES Downloader, Extractor & PostgreSQL Loader
 
 Este repositório automatiza o processo de **download**, **extração** e **importação no banco de dados PostgreSQL** dos dados mais recentes do **Cadastro Nacional de Estabelecimentos de Saúde (CNES)** diretamente do FTP oficial do DATASUS.
@@ -47,7 +48,13 @@ cd cnes-downloader
 
 ### 2️⃣ Instale os requisitos
 
-> Este projeto utiliza apenas bibliotecas padrão do Python (3.7+). Sem dependências externas.
+Instale os requisitos do projeto:
+
+```bash
+pip install -r requirements.txt
+```
+
+> Este projeto utiliza apenas bibliotecas padrão do Python (3.5+), conforme definido no `requirements.txt`.
 
 ### 3️⃣ Execute o script Python
 
@@ -128,6 +135,7 @@ Todos os logs de execução são armazenados em `cnes_downloader.log` com inform
 ├── cnes.py
 ├── query.sql
 ├── query_tab_análise.sql
+├── requirements.txt
 ├── Makefile
 ├── LICENSE
 ├── .gitignore

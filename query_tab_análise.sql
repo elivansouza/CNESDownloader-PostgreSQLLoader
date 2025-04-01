@@ -1,5 +1,6 @@
 -- CRIAÇÃO DE VIEW PARA TABELA GERAL CNES E CENSO
-CREATE OR REPLACE VIEW cnes.vw_cnes_censo AS
+CREATE
+OR REPLACE VIEW cnes.vw_cnes_censo AS
 SELECT
   cnes.co_cnes,
   cnes.co_unidade,
@@ -15,13 +16,14 @@ SELECT
   cnes.ds_tipo_estabelecimento,
   cnes.tp_unidade,
   cnes.ds_tipo_unidade,
-  (
-    CASE
-      WHEN cnes.tp_unidade IN ('01', '02', '15', '32', '40') THEN 'Unidades APS'
-      WHEN cnes.tp_unidade LIKE '72' THEN 'Saúde Indígena'
-      ELSE 'Outros'
-    END
-  ) AS ds_categoria_unidade,
+CASE
+    WHEN cnes.tp_unidade IN ('01', '02', '15', '32', '40') THEN 'Unidades APS'
+    WHEN cnes.tp_unidade LIKE '72'
+        OR cnes.co_cnes IN (
+              -- LISTA DE CNES OCULTA POR SE TRATAR ITENS DE DISCUSSÃO INTERNA) 
+              THEN 'Saúde Indígena'
+    ELSE 'Outros'
+  END AS ds_categoria_unidade,
   cnes.co_natureza_jur,
   cnes.ds_natureza_jur,
   cnes.no_logradouro,
@@ -82,7 +84,11 @@ FROM
   LEFT JOIN muns.muns20 AS muns ON cnes.co_municipio_gestor = muns.ibge
   LEFT JOIN cnes.censo AS censo ON cnes.co_cnes = censo.cnes
 WHERE
-  (co_motivo_desab LIKE '')
+(co_motivo_desab LIKE '')
+  AND (
+    co_cnes NOT IN (
+     -- LISTA DE CNES OCULTA POR SE TRATAR ITENS DE DISCUSSÃO INTERNA)
+  )
   AND (
     st_conexao_internet LIKE ('N')
     OR censo.status_conexão IN (
@@ -90,4 +96,67 @@ WHERE
       'Sem conexão',
       'Sem conexão com inconsistência'
     )
+    OR cnes.co_cnes IN (
+      -- LISTA DE CNES OCULTA POR SE TRATAR ITENS DE DISCUSSÃO INTERNA
+    )
   )
+
+
+
+-- ADIÇÃO DOS REGISTROS DE UNIDADES YANOMAMI NA VIEW
+CREATE
+OR REPLACE VIEW cnes.vw_conectividade AS
+SELECT
+  *
+FROM
+  cnes.vw_cnes_censo
+UNION
+ALL
+SELECT
+  co_cnes,
+  co_unidade,
+  co_municipio_gestor,
+  "região",
+  sigla_uf,
+  co_estado_gestor,
+  nome_uf,
+  "nome_município",
+  no_razao_social,
+  no_fantasia,
+  co_tipo_estabelecimento,
+  ds_tipo_estabelecimento,
+  tp_unidade,
+  ds_tipo_unidade,
+  ds_categoria_unidade,
+  co_natureza_jur,
+  ds_natureza_jur,
+  no_logradouro,
+  validacao_logradouro,
+  nu_endereco,
+  no_complemento,
+  no_bairro,
+  co_cep,
+  nu_latitude,
+  nu_longitude,
+  validacao_latitude,
+  validacao_longitude,
+  nu_telefone,
+  validacao_telefone,
+  no_email,
+  validacao_email,
+  st_conexao_internet,
+  co_motivo_desab,
+  v110_latitude,
+  v111_longitude,
+  v33_acesso_internet_ubs,
+  v341_consultorio,
+  v342_alguns_consultorios,
+  v343_farmacia,
+  v344_recepcao,
+  v345_sala_vacina,
+  v346_sala_acs,
+  v347_nenhum,
+  "status_conexão",
+  validacao_status_conexao
+FROM
+  cnes.unidades_indigenas;
