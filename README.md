@@ -7,22 +7,22 @@ Este repositório automatiza o processo de **download**, **extração** e **impo
 
 ## 📦 Arquivos CNES obtidos
 
-O script baixa e extrai arquivos CSV contidos no pacote ZIP mensal do CNES, incluindo:
-
-- `rlEstabEquipeProf202502.csv`
-- `tbAtividade202502.csv`
-- `tbAtividadeProfissional202502.csv`
-- `tbConselhoClasse202502.csv`
-- `tbDadosProfissionalSus202502.csv`
-- `tbEstabelecimento202502.csv`
-- `tbGestao202502.csv`
-- `tbGrupoAtividade202502.csv`
-- `tbGrupoEquipe202502.csv`
-- `tbSubTipo202502.csv`
-- `tbSubTipoEquipe202502.csv`
-- `tbTipoEstabelecimento202502.csv`
-- `tbTipoUnidade202502.csv`
-- `tbTurnoAtendimento202502.csv`
+| ARQUIVO                           | DESCRIÇÃO                                                       |
+|----------------------------------|------------------------------------------------------------------|
+| rlEstabEquipeProf202502.csv      | Profissionais da equipe                                         |
+| tbAtividade202502.csv            | Tipo de atividades realizadas pelos estabelecimentos            |
+| tbAtividadeProfissional202502.csv| Classificação Brasileira de Ocupações (CBO)                     |
+| tbConselhoClasse202502.csv       | Conselho de Classe Profissional                                 |
+| tbDadosProfissionalSus202502.csv | Lista de informações relacionadas aos profissionais de saúde     |
+| tbEstabelecimento202502.csv      | Estabelecimentos de saúde                                       |
+| tbGestao202502.csv               | Tipo de gestão do SUS                                           |
+| tbGrupoAtividade202502.csv       | Grupo de atividades realizadas pelos estabelecimentos           |
+| tbGrupoEquipe202502.csv          | Grupo de equipes que atuam nos estabelecimentos                 |
+| tbSubTipo202502.csv              | Subtipo de estabelecimento de saúde                             |
+| tbSubTipoEquipe202502.csv        | Subtipo de equipe de saúde que atua nos estabelecimentos        |
+| tbTipoEstabelecimento202502.csv  | Descrição do tipo de estabelecimento                            |
+| tbTipoUnidade202502.csv          | Descrição do tipo de unidade dos estabelecimentos               |
+| tbTurnoAtendimento202502.csv     | Turno de atendimento dos estabelecimentos                       |
 
 ---
 
